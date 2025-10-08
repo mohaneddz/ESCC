@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -8,19 +10,46 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --font-lexend: 'Lexend Deca', sans-serif;
+  --font-permanent: 'Permanent Marker', cursive;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #0a0a0a;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+section{
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+}
+
+h2{
+  font-size: 6rem;
+  font-family: var(--font-permanent);
+  color: black;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 2.5rem;
+  }
 }
