@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function TeamCard({ name, title, image }: { name?: string, title?: string, image?: string }) {
     return (
-        <div className="relative group w-80 aspect-[0.8] rounded-2xl overflow-hidden shadow-lg">
+        <div className="relative group w-60 md:w-80 aspect-[0.8] rounded-2xl overflow-hidden shadow-lg cursor-pointer">
             <Image
                 src={image || "/image/managers/default.png"}
                 alt={`Photo of ${name}`}

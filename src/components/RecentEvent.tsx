@@ -8,7 +8,7 @@ type RecentEventProps = {
 
 export default function RecentEvent({ image, title, date }: RecentEventProps) {
     return (
-        <div className="relative rounded-xl overflow-hidden aspect-video w-[50vw]">
+        <div className="relative rounded-xl overflow-hidden aspect-video lg:w-[50vw] w-[90vw]">
             <Image
                 src={image}
                 alt=""
@@ -18,8 +18,8 @@ export default function RecentEvent({ image, title, date }: RecentEventProps) {
             />
             <div className="bg-gradient-to-b from-transparent via-transparent/40 to-[#00C9FF] absolute inset-0"></div>
             <div className="absolute bottom-0 center col w-full py-8 font-lexend gap-4">
-                <h2 className="font-bold text-6xl text-center">{title}</h2>
-                <p className="font-bold">{date}</p>
+                <h3 className="font-bold text-md lg:text-6xl text-center">{title}</h3>
+                <p className="font-bold text-sm lg:text-2xl text-center">{date}</p>
             </div>
         </div>
     );

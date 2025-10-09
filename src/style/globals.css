@@ -22,18 +22,41 @@
   }
 }
 
+html{
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+  scroll-snap-type: y mandatory;
+  overflow-x: hidden;
+  display: relative;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
+  display: relative;
+}
+
+main{
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  display: relative;
 }
 
 section{
-  height: 100vh;
   scroll-snap-align: start;
   display: flex;
+  overflow: hidden;
+  display: relative;
 }
+
+/* @media (max-width: 768px) {
+  section {
+    height: auto;
+  }
+} */
 
 h2{
   font-size: 6rem;
@@ -50,6 +73,6 @@ h2{
 
 @media (max-width: 480px) {
   h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 }

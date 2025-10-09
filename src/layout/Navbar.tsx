@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, Variants } from "motion/react";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,7 +11,7 @@ export default function Navbar() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const menuVariants = {
+  const menuVariants: Variants = {
     hidden: {
       opacity: 0,
       y: -20,
@@ -21,7 +21,8 @@ export default function Navbar() {
       y: 0,
       transition: {
         duration: 0.3,
-        ease: "cubic-bezier(0.42, 0, 0.58, 1)",
+        // TypeScript now knows this is a valid Easing string
+        ease: "easeInOut",
       },
     },
     exit: {
@@ -29,15 +30,32 @@ export default function Navbar() {
       y: -20,
       transition: {
         duration: 0.3,
-        ease: "cubic-bezier(0.42, 0, 0.58, 1)",
+        ease: "easeInOut",
       },
     },
   };
 
-  const mobileMenuContainerVariants = {
+  // 3. Explicitly type this object as 'Variants' too
+  const mobileMenuContainerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.3 } },
     exit: { opacity: 0, transition: { duration: 0.3 } },
+  };
+
+  // Add variants for the burger/X animation
+  const topLineVariants: Variants = {
+    closed: { rotate: 0, translateY: 0 },
+    open: { rotate: 45, translateY: 6 },
+  };
+
+  const middleLineVariants: Variants = {
+    closed: { opacity: 1 },
+    open: { opacity: 0 },
+  };
+
+  const bottomLineVariants: Variants = {
+    closed: { rotate: 0, translateY: 0 },
+    open: { rotate: -45, translateY: -6 },
   };
 
   return (
@@ -65,8 +83,45 @@ export default function Navbar() {
 
       {/* Mobile Navigation */}
       <div className="md:hidden">
-        <button onClick={toggleMobileMenu} className="text-2xl z-50">
-          {isMobileMenuOpen ? "✕" : "☰"}
+        <button onClick={toggleMobileMenu} className="text-2xl z-100 relative text-foreground">
+          {/* Animated SVG burger to X */}
+          <motion.svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            animate={isMobileMenuOpen ? "open" : "closed"}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.line
+              x1="3"
+              y1="6"
+              x2="21"
+              y2="6"
+              variants={topLineVariants}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.line
+              x1="3"
+              y1="12"
+              x2="21"
+              y2="12"
+              variants={middleLineVariants}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.line
+              x1="3"
+              y1="18"
+              x2="21"
+              y2="18"
+              variants={bottomLineVariants}
+              transition={{ duration: 0.3 }}
+            />
+          </motion.svg>
         </button>
       </div>
 
@@ -77,7 +132,7 @@ export default function Navbar() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+            className="fixed inset-0 top-0 left-0 bg-black/97 backdrop-blur-2xl z-50 screen center"
             onClick={toggleMobileMenu}
           >
             <motion.div
@@ -85,15 +140,15 @@ export default function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="absolute top-16 left-0 w-full bg-background/90 backdrop-blur-sm flex flex-col items-center md:hidden text-black shadow-lg"
+              className="w-full flex flex-col items-center md:hidden text-white shadow-lg pb-8 rounded-b-xl"
               onClick={(e) => e.stopPropagation()}
             >
               <ul className="w-full text-center">
-                <li className="text-lg nav-item py-4 border-b">Home</li>
-                <li className="text-lg nav-item py-4 border-b">Events</li>
-                <li className="text-lg nav-item py-4">Contacts</li>
+                <li className="select-none text-3xl nav-item py-4 hover:bg-accent/50 transition-colors">Home</li>
+                <li className="select-none text-3xl nav-item py-4 hover:bg-accent/50 transition-colors">Events</li>
+                <li className="select-none text-3xl nav-item py-4 hover:bg-accent/50 transition-colors">Contacts</li>
               </ul>
-              <Button variant="primary" className="click my-4">
+              <Button variant="primary" className="click mt-4 w-3/4">
                 Register
               </Button>
             </motion.div>

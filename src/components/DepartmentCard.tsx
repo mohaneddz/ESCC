@@ -22,14 +22,14 @@ export default function DepartmentCard({
 
     return (
         <div 
-            className={`group relative w-full aspect-[4/3] rounded-lg transition-all duration-500 [transform-style:preserve-3d] ${isFlipped ? '[transform:rotateY(180deg)]' : ''} hover:scale-105 hover:-translate-y-2`}
+            className={`grouprelative w-full aspect-[4/3] rounded-lg transition-all duration-500 [transform-style:preserve-3d] ${isFlipped ? '[transform:rotateY(180deg)]' : ''} hover:scale-105 hover:-translate-y-2`}
         >
             
             {/* Front of the card */}
-            <div className="absolute w-full h-full rounded-lg bg-gradient-to-r from-[#3225a1] via-[#1e74b8] to-[#3225a1] [backface-visibility:hidden] flex flex-col items-center justify-center">
-                <Image src={image || "/images/event1.jpg"} alt={title || "Department Image"} width={100} height={100} className="h-24 rounded-t-lg" />
+            <div className="absolute p-2 w-full h-full rounded-lg bg-gradient-to-r from-[#3225a1] via-[#1e74b8] to-[#3225a1] [backface-visibility:hidden] flex flex-col items-center justify-center">
+                <Image src={image || "/images/event1.jpg"} alt={title || "Department Image"} width={100} height={100} className="h-8 rounded-t-lg" />
 
-                <h3 className="text-white text-lg font-bold mt-4">{title}</h3>
+                <h3 className="text-white text-center text-lg font-bold mt-4">{title}</h3>
 
                 <div className="flex items-center justify-center">
                     <Button variant="card_blue" className="mt-4 font-lexend flex justify-between gap-2 w-40 text-xl" onClick={handleClick}>
@@ -42,7 +42,7 @@ export default function DepartmentCard({
             {/* Back of the card */}
             <div className="absolute w-full h-full rounded-lg bg-gradient-to-r from-[#3225a1] via-[#1e74b8] to-[#3225a1] [backface-visibility:hidden] [transform:rotateY(180deg)] p-4 text-white flex flex-col items-center justify-center shadow-2xl shadow-blue-500/50">
                 <div className="flex items-start gap-2 mb-4">
-                    <p className="text-center text-lg italic">{description || "No description available."}</p>
+                    <p className="text-center text-md sm:text-sm italic">{description || "No description available."}</p>
                 </div>
                 <div className="flex items-center justify-center">
                     <Button variant="card_blue" className="mt-4 font-lexend flex justify-between gap-2 w-40 text-xl" onClick={handleClick}>
