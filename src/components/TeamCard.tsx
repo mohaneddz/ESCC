@@ -10,14 +10,14 @@ export default function TeamCard({ name, title, image }: { name?: string, title?
                 className="object-cover w-full h-full transition-transform duration-500 ease-in-out group-hover:scale-110"
             />
             {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-tertiary/80 via-tertiary/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-tertiary/80 via-tertiary/40 md:via-tertiary/20 to-transparent"></div>
             
             {/* Text Content */}
             <div className="absolute inset-0 flex flex-col items-center justify-end p-6 text-center">
-                <h3 className="text-3xl font-bold text-white uppercase tracking-wider">
+                <h3 className="text-3xl font-bold text-white uppercase tracking-wider" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.3)' }}>
                     {name}
                 </h3>
-                <p className="text-lg text-white font-medium">
+                <p className="text-sm md:text-lg text-white font-semibold" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.2)' }}>
                     {title}
                 </p>
             </div>

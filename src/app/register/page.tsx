@@ -89,7 +89,7 @@ export default function page() {
                             <ThankYou />
                     ) : (
                         <>
-                            <Carousel className="flex justify-center max-w-screen md:max-h-120 md:max-w-2xl " opts={{ align: "center", loop: true }} setApi={setApi}>
+                            <Carousel className="flex justify-center max-w-screen md:max-h-120 md:max-w-2xl max-h-screen overflow-y-hidden" opts={{ align: "center", loop: true }} setApi={setApi}>
                                 <CarouselContent>
 
                                     <CarouselItem className="full flex justify-center items-start">

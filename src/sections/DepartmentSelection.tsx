@@ -44,7 +44,7 @@ export default function DepartmentSelection({
     return (
         <div className="bg-white h-max z-10 flex flex-col items-center">
 
-            <h3 className="text-xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-green-400 text-center mb-8">
+            <h3 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-green-400 text-center mb-8">
                 Department Selection
             </h3>
             

@@ -4,7 +4,7 @@ import { departments } from "@/data/departments";
 
 export default function OurDepartments() {
   return (
-    <section className="relative w-screen h-full md:screen pt-20 md:py-24 center my-8 md:my-24">
+    <section className="relative w-screen h-full md:screen pt-20 md:py-24 center my-8 md:my-24" id="departments">
       <ESCC />
       
       <div className="container mx-auto">

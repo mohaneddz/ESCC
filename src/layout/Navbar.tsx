@@ -1,165 +1,192 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { AnimatePresence, motion, Variants } from "motion/react";
+import Link from "next/link";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
 export default function Navbar() {
-
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   async function goToRegister() {
     window.location.href = "/register";
   }
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-  const menuVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: -20,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.3,
-        // TypeScript now knows this is a valid Easing string
-        ease: "easeInOut",
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: -20,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-  };
+  // 🔹 Detect active section from hash or scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["home", "events", "departments"];
+      const scrollPosition = window.scrollY + 100;
 
-  // 3. Explicitly type this object as 'Variants' too
-  const mobileMenuContainerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.3 } },
-    exit: { opacity: 0, transition: { duration: 0.3 } },
-  };
+      // Don't auto-update if hash is present
+      if (window.location.hash) return;
 
-  // Add variants for the burger/X animation
-  const topLineVariants: Variants = {
-    closed: { rotate: 0, translateY: 0 },
-    open: { rotate: 45, translateY: 6 },
-  };
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
 
-  const middleLineVariants: Variants = {
-    closed: { opacity: 1 },
-    open: { opacity: 0 },
-  };
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace("#", "");
+      setActiveSection(hash || "home");
+    };
 
-  const bottomLineVariants: Variants = {
-    closed: { rotate: 0, translateY: 0 },
-    open: { rotate: -45, translateY: -6 },
-  };
+    handleHashChange();
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  // Update active section when mobile menu opens
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      const hash = window.location.hash.replace("#", "");
+      setActiveSection(hash || "home");
+    }
+  }, [isMobileMenuOpen]);
 
   return (
-    <nav className="navbar w-screen py-4 flex justify-between items-center px-8 fixed top-0 bg-background/70 backdrop-blur-sm z-50">
-      <div className="logo text-2xl font-bold colored">ESCC CLUB</div>
+    <>
+      <nav className="navbar w-screen py-4 flex justify-between items-center px-8 fixed top-0 bg-background/70 backdrop-blur-sm z-50">
+        <div className="logo text-2xl font-black colored">ESCC CLUB</div>
 
-      {/* Desktop Navigation */}
-      <ul className="flex-1 hidden md:flex justify-center items-center gap-8">
-        <li className="text-lg nav-item cursor-pointer hover:text-primary transition-colors duration-300">
-          Home
-        </li>
-        <li className="text-lg nav-item cursor-pointer hover:text-primary transition-colors duration-300">
-          Events
-        </li>
-        <li className="text-lg nav-item cursor-pointer hover:text-primary transition-colors duration-300">
-          Contacts
-        </li>
-      </ul>
+        {/* Desktop Navigation */}
+        <ul className="flex-1 hidden md:flex justify-center items-center gap-8">
+          {["home", "events", "departments"].map((item) => (
+            <Link key={item} href={`#${item}`}>
+              <li
+                className={`text-lg nav-item cursor-pointer hover:text-primary transition-colors duration-300 ${
+                  activeSection === item ? "text-primary" : ""
+                }`}
+              >
+                {item.charAt(0).toUpperCase() + item.slice(1)}
+              </li>
+            </Link>
+          ))}
+        </ul>
 
-      <div className="hidden md:block">
-        <Button variant="primary" className="click" onClick={goToRegister}>
-          Register
-        </Button>
-      </div>
+        <div className="hidden md:block">
+          <Button variant="primary" className="click" onClick={goToRegister}>
+            Register
+          </Button>
+        </div>
 
-      {/* Mobile Navigation */}
-      <div className="md:hidden">
-        <button onClick={toggleMobileMenu} className="text-2xl z-100 relative text-foreground">
-          {/* Animated SVG burger to X */}
-          <motion.svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            animate={isMobileMenuOpen ? "open" : "closed"}
-            transition={{ duration: 0.3 }}
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <button
+            onClick={toggleMobileMenu}
+            className="text-2xl z-[60] relative text-white"
           >
-            <motion.line
-              x1="3"
-              y1="6"
-              x2="21"
-              y2="6"
-              variants={topLineVariants}
-              transition={{ duration: 0.3 }}
-            />
-            <motion.line
-              x1="3"
-              y1="12"
-              x2="21"
-              y2="12"
-              variants={middleLineVariants}
-              transition={{ duration: 0.3 }}
-            />
-            <motion.line
-              x1="3"
-              y1="18"
-              x2="21"
-              y2="18"
-              variants={bottomLineVariants}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.svg>
-        </button>
-      </div>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`transition-transform duration-300 ${
+                isMobileMenuOpen ? "rotate-45" : ""
+              }`}
+            >
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line
+                x1="3"
+                y1="12"
+                x2="21"
+                y2="12"
+                className={isMobileMenuOpen ? "opacity-0" : ""}
+              />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+        </div>
+      </nav>
 
+      {/* 🔹 Animated Mobile Side Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            variants={mobileMenuContainerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="fixed inset-0 top-0 left-0 bg-black/97 backdrop-blur-2xl z-50 screen center"
-            onClick={toggleMobileMenu}
-          >
+          <>
+            {/* Backdrop */}
             <motion.div
-              variants={menuVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="w-full flex flex-col items-center md:hidden text-white shadow-lg pb-8 rounded-b-xl"
-              onClick={(e) => e.stopPropagation()}
+              key="backdrop"
+              onClick={toggleMobileMenu}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[55] md:hidden"
+            />
+
+            {/* Side Drawer */}
+            <motion.div
+              key="drawer"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed top-0 right-0 h-screen w-[280px] bg-white z-[60] shadow-2xl md:hidden flex flex-col"
             >
-              <ul className="w-full text-center">
-                <li className="select-none text-3xl nav-item py-4 hover:bg-accent/50 transition-colors">Home</li>
-                <li className="select-none text-3xl nav-item py-4 hover:bg-accent/50 transition-colors">Events</li>
-                <li className="select-none text-3xl nav-item py-4 hover:bg-accent/50 transition-colors">Contacts</li>
-              </ul>
-              <Button variant="primary" className="click mt-4 w-3/4" onClick={goToRegister}>
-                Register
-              </Button>
+              {/* Drawer Header */}
+              <div className="p-6">
+                <div className="center gap-3">
+                  <Image
+                    src="/svg/misc/logo.svg"
+                    alt="Logo"
+                    width={32}
+                    height={32}
+                  />
+                  <span className="text-xl font-black colored">ESC CLUB</span>
+                </div>
+              </div>
+
+              {/* Menu Items */}
+              <div className="flex-1 flex flex-col justify-start gap-8 px-6">
+                {["home", "events", "departments"].map((item) => (
+                  <Link
+                    key={item}
+                    href={`#${item}`}
+                    onClick={toggleMobileMenu}
+                  >
+                    <div
+                      className={`py-4 px-6 mb-2 rounded-lg font-semibold text-center cursor-pointer transition-colors ${
+                        activeSection === item
+                          ? "bg-[#d9f3ff] text-secondary font-bold"
+                          : "text-gray-700"
+                      }`}
+                    >
+                      {item.charAt(0).toUpperCase() + item.slice(1)}
+                    </div>
+                  </Link>
+                ))}
+
+                <Button variant="primary" onClick={goToRegister}>
+                  Register
+                </Button>
+              </div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }

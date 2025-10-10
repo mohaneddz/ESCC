@@ -20,8 +20,8 @@ export default function Input({
   return (
     <div className="w-full relative">
       <label
-        className={`absolute left-2 transition-all duration-200 pointer-events-none
-          ${value || focused ? "top-0 text-[0.5rem] md:text-xs" : "top-2 text-sm md:text-base"}
+        className={`absolute left-1 transition-all duration-200 pointer-events-none truncate text-nowrap
+          ${value || focused ? "top-0 text-[0.5rem] md:text-xs" : "top-7 text-[0.6rem] md:text-base"}
           ${isValid ? "text-secondary" : "text-red-500"} ${!isValid && !focused ? "text-gray-400" : ""}
         `}
       >

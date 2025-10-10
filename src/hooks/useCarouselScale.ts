@@ -1,8 +1,11 @@
+"use client";
+
 import * as React from "react";
 import { type CarouselApi } from "@/components/ui/carousel";
 import { managers } from "@/data/managers";
 
 export function useCarouselScale() {
+
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [scaleValues, setScaleValues] = React.useState<number[]>(

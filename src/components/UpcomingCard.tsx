@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export default function UpcomingCard({ image, title, date, description, show }: { image?: string, title?: string, date?: string, description?: string, show?: boolean }) {
     return (
-        <div className="snap-center shrink-0 relative aspect-[3/4] rounded-xl shadow-lg w-60 md:w-80 z-30 overflow-hidden flex flex-col bg-white/10 hover:scale-105 hover:shadow-lg transition-all hover:-translate-y-4">
+        <div className="snap-center shrink-0 relative aspect-[3/4] rounded-xl shadow-lg w-60 md:w-80 z-30 overflow-hidden flex flex-col bg-white/10 md:hover:scale-105 hover:shadow-lg transition-all md:hover:-translate-y-2">
 
             {
                 show && (

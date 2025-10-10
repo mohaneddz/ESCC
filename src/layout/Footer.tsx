@@ -9,14 +9,15 @@ export default function Footer() {
 
       <div className="container mx-auto grid md:gap-0 md:grid-cols-2 h-full z-30 ">
 
-        <div className="center col md:pl-10">
-          <p className="md:text-2xl md:visible hidden font-bold text-nowrap">Developed by</p>
+        <div className="center col md:pl-10 pt-8">
+          <p className="md:text-2xl font-bold text-nowrap">Developed by</p>
 
-          <div className="center md:gap-8 my-4 font-black md:text-5xl text-xl  text-nowrap">
-            <Image src="/svg/misc/logo.svg" alt="ESC CLUB" width={50} height={50} className="mb-4" />
+          <div className="center md:gap-8 my-4 font-black md:text-5xl text-xl text-nowrap gap-4">
+            <Image src="/svg/misc/logo.svg" alt="ESC CLUB" width={30} height={30} className="md:mb-4" />
             <h4 className="colored font-bold">ESC CLUB</h4>
           </div>
-          <p className="md:text-xl text-md text-nowrap">&copy; 2025 &nbsp;| &nbsp;
+          <p className="md:text-xl text-md font-bold text-nowrap">&copy; 2025 ESCC
+            <br />
             <Link href={'https://github.com/mohaneddz'} className="underline md:text-secondary-light text-white/80 font-bold" target="_blank" rel="noopener noreferrer">
               MANAA Mohaned
             </Link>
@@ -24,7 +25,7 @@ export default function Footer() {
 
         </div>
 
-        <ul className="center md:pr-10 md:gap-12 gap-8">
+        <ul className="center md:pr-10 md:gap-12 gap-4 mb-8">
           <li className="w-max h-max"><Image className="click w-8" src="/svg/icon/social/facebook.svg" alt="facebook" width={40} height={40} /></li>
           <li className="w-max h-max"><Image className="click w-8" src="/svg/icon/social/gmail.svg" alt="gmail" width={40} height={40} /></li>
           <li className="w-max h-max"><Image className="click w-8" src="/svg/icon/social/instagram.svg" alt="instagram" width={40} height={40} /></li>

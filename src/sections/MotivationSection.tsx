@@ -13,27 +13,27 @@ export default function MotivationSection({ setMotivationData }: { setMotivation
     return (
         <div className="bg-white z-10 col gap-4 h-screen max-h-[50vh] md:max-h-120 overflow-y-auto md:px-24 px-8 ">
             <div>
-                <h4 className="colored font-bold text-xl md:text-4xl mb-8 mt-6 text-nowrap">First choice motivation</h4>
+                <h4 className="colored font-bold text-2xl md:text-4xl mb-8 mt-6 text-nowrap">First choice motivation</h4>
                 <div className="col gap-4">
                     <Input placeholder="Describe your experience if any" value={choice1.experience} onChange={(e) => setChoice1({ ...choice1, experience: e.target.value })} />
                     <Input placeholder="Link to your previous work" value={choice1.work} onChange={(e) => setChoice1({ ...choice1, work: e.target.value })} />
-                    <Input placeholder="What are your expectations from joining this department" value={choice1.expectations} onChange={(e) => setChoice1({ ...choice1, expectations: e.target.value })} necessary />
+                    <Input placeholder="What are your expectations from this department?" value={choice1.expectations} onChange={(e) => setChoice1({ ...choice1, expectations: e.target.value })} necessary />
                 </div>
             </div>
             <div>
-                <h4 className="colored font-bold text-xl md:text-4xl my-8 text-nowrap">Second choice motivation</h4>
+                <h4 className="colored font-bold text-2xl md:text-4xl my-8 text-nowrap">Second choice motivation</h4>
                 <div className="col gap-4">
                     <Input placeholder="Describe your experience if any" value={choice2.experience} onChange={(e) => setChoice2({ ...choice2, experience: e.target.value })} />
                     <Input placeholder="Link to your previous work" value={choice2.work} onChange={(e) => setChoice2({ ...choice2, work: e.target.value })} />
-                    <Input placeholder="What are your expectations from joining this department" value={choice2.expectations} onChange={(e) => setChoice2({ ...choice2, expectations: e.target.value })} />
+                    <Input placeholder="What are your expectations from this department?" value={choice2.expectations} onChange={(e) => setChoice2({ ...choice2, expectations: e.target.value })} />
                 </div>
             </div>
             <div>
-                <h4 className="colored font-bold text-xl md:text-4xl my-8 text-nowrap">Third choice motivation</h4>
+                <h4 className="colored font-bold text-2xl md:text-4xl my-8 text-nowrap">Third choice motivation</h4>
                 <div className="col gap-4">
                     <Input placeholder="Describe your experience if any" value={choice3.experience} onChange={(e) => setChoice3({ ...choice3, experience: e.target.value })} />
                     <Input placeholder="Link to your previous work" value={choice3.work} onChange={(e) => setChoice3({ ...choice3, work: e.target.value })} />
-                    <Input placeholder="What are your expectations from joining this department" value={choice3.expectations} onChange={(e) => setChoice3({ ...choice3, expectations: e.target.value })} />
+                    <Input placeholder="What are your expectations from this department?" value={choice3.expectations} onChange={(e) => setChoice3({ ...choice3, expectations: e.target.value })} />
                 </div>
             </div>
         </div>

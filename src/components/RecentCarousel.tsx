@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import RecentEvent from "@/components/RecentEvent";
+import { recentEvents } from "@/data/events";
 
 import {
     Carousel,
@@ -15,6 +15,7 @@ import {
 import CarousalNavigation from "@/components/auth/CarousalNavigation";
 
 export default function RecentCarousel() {
+
     const [api, setApi] = React.useState<CarouselApi>();
     const [current, setCurrent] = React.useState(0);
     const [count, setCount] = React.useState(0);
@@ -33,7 +34,6 @@ export default function RecentCarousel() {
 
         api.on("select", onSelect);
 
-        // Clean up the event listener when the component unmounts
         return () => {
             api.off("select", onSelect);
         };
@@ -55,27 +55,15 @@ export default function RecentCarousel() {
     );
 
     return (
-        <div className="relative w-full max-w-9xl mx-auto py-12">
+        <div className="relative w-full max-w-9xl mx-auto py-12 z-30">
 
-            <Carousel className="center" opts={{ align: "center", loop: true }} setApi={setApi}>
+            <Carousel className="center mb-8 md:mb-4" opts={{ align: "center", loop: true }} setApi={setApi}>
                 <CarouselContent>
-
-                    <CarouselItem>
-                        <RecentEvent image="/image/events/olympole.png" title="OLYMPOLE" date="January 2025" />
-                    </CarouselItem>
-
-                    <CarouselItem>
-                        <RecentEvent image="/image/events/olympole.png" title="OLYMPOLE" date="January 2025" />
-                    </CarouselItem>
-
-                    <CarouselItem>
-                        <RecentEvent image="/image/events/olympole.png" title="OLYMPOLE" date="January 2025" />
-                    </CarouselItem>
-
-                    <CarouselItem>
-                        <RecentEvent image="/image/events/olympole.png" title="OLYMPOLE" date="January 2025" />
-                    </CarouselItem>
-                    
+                    {recentEvents.map((event, index) => (
+                        <CarouselItem key={index}>
+                            <RecentEvent image={event.image} title={event.title} date={event.date} />
+                        </CarouselItem>
+                    ))}
                 </CarouselContent>
             </Carousel>
 

@@ -54,10 +54,11 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData,
     const allComplete = isMainComplete() && isDepartmentsComplete() && isMotivationsComplete();
 
     const handleSubmit = () => {
+        document.cookie = "registered=false; path=/; max-age=31536000";
         if (allComplete && !hasApplied) {
             postData({ mainData, departmentData, motivationData })
                 .then((response) => {
-                    document.cookie = "registered=true; path=/; max-age=31536000"; 
+                    document.cookie = "registered=true; path=/; max-age=31536000";
                     setHasApplied(true);
                     window.location.reload();
                 })
@@ -146,6 +147,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData,
             )}
             <Button
                 variant="primary"
+                className={`mt-4 ${!allComplete || hasApplied ? "opacity-50 cursor-not-allowed" : ""}`}
                 onClick={handleSubmit}
                 disabled={!allComplete || hasApplied}
             >

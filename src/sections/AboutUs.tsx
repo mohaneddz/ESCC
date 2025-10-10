@@ -3,7 +3,7 @@ import AboutUsCards from "@/components/AboutUsCards";
 
 export default function AboutUs() {
   return (
-    <section className="w-screen h-full md:h-full overflow-hidden relative">
+    <section className="w-screen h-full md:h-full overflow-hidden relative" id="about">
 
     <div className="h-[120vh] mx-auto w-screen grid grid-cols-1 md:grid-cols-2 gap-20 md:gap-16 md:px-20 md:py-32 items-center justify-center" id="aboutus">
 

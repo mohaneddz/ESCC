@@ -14,7 +14,7 @@ export default function CarousalNavigation({className, scrollPrev, scrollNext, s
                     alt="Previous"
                     width={32}
                     height={32}
-                    className="transform transition-transform rotate-180"
+                    className="transform transition-transform rotate-180 w-8 h-8 md:w-12 md:h-12"
                 />
             </button>
 
@@ -42,7 +42,7 @@ export default function CarousalNavigation({className, scrollPrev, scrollNext, s
                     alt="Next"
                     width={32}
                     height={32}
-                    className="transform transition-transform"
+                    className="transform transition-transform w-8 h-8 md:w-12 md:h-12"
                 />
             </button>
         </div>
