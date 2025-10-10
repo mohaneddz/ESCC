@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
+import type { DepartmentPreferences } from "@/types/registration";
 
 export default function DepartmentSelection({
     setDepartmentData,
 }: {
-    setDepartmentData?: (data: {
-        department1: string;
-        department2: string;
-        department3: string;
-    }) => void;
+    setDepartmentData?: (data: DepartmentPreferences) => void;
 }) {
     const [department1, setDepartment1] = useState("");
     const [department2, setDepartment2] = useState("");

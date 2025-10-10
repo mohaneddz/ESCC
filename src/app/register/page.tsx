@@ -14,15 +14,20 @@ import MotivationSection from "@/sections/MotivationSection";
 import DepartmentSelection from "@/sections/DepartmentSelection";
 import SubmitSection from "@/sections/SubmitSection";
 import ThankYou from "@/sections/ThankYou";
+import type {
+    DepartmentPreferences,
+    MainFormData,
+    MotivationFormData,
+} from "@/types/registration";
 
-export default function page() {
+export default function RegisterPage() {
 
     const [api, setApi] = useState<CarouselApi>();
     const [currPage, setCurrPage] = useState(0);
     const [totalSteps, setTotalSteps] = useState(0);
     const [isRegistered, setIsRegistered] = useState<boolean | null>(null);
 
-    const [mainData, setMainData] = useState({
+    const [mainData, setMainData] = useState<MainFormData>({
         firstName: "",
         lastName: "",
         email: "",
@@ -31,13 +36,13 @@ export default function page() {
         year: "1",
     });
 
-    const [departmentData, setDepartmentData] = useState({
+    const [departmentData, setDepartmentData] = useState<DepartmentPreferences>({
         department1: "",
         department2: "",
         department3: "",
     });
 
-    const [motivationData, setMotivationData] = useState({
+    const [motivationData, setMotivationData] = useState<MotivationFormData>({
         choice1: {
             work: "",
             experience: "",
@@ -131,4 +136,4 @@ export default function page() {
             </div>
         </main>
     );
-};
+}

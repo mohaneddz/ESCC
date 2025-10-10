@@ -6,8 +6,9 @@ import React from "react";
 
 import { useState, useEffect } from "react";
 import {verifyFirstName, verifyLastName, verifyEmail, verifyPhone} from "@/utils/verify";
+import type { MainFormData } from "@/types/registration";
 
-export default function BecomeMember({setMainData}: {setMainData?: (data: {firstName: string, lastName: string, email: string, phone: string, school: string, year: string}) => void}) {
+export default function BecomeMember({setMainData}: {setMainData?: (data: MainFormData) => void}) {
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");

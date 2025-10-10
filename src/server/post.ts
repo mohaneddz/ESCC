@@ -1,10 +1,15 @@
 'use server';
 
+import type { RegistrationPayload } from "@/types/registration";
+
 const sheet = process.env.NEXT_PUBLIC_SHEET_URL;
 
-export async function postData(data: any) {
-	const res = await fetch(sheet ?? '', {
-		method: 'POST',
+export async function postData(data: RegistrationPayload) {
+	const res = await fetch(sheet ?? "", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
 		body: JSON.stringify(data),
 	});
 

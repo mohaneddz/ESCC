@@ -8,11 +8,16 @@ import { ChevronDown } from "lucide-react";
 import { Button } from '@/components/ui/button';
 
 import { postData } from "@/server/post";
+import type {
+    DepartmentPreferences,
+    MainFormData,
+    MotivationFormData,
+} from "@/types/registration";
 
 interface SubmitSectionProps {
-    mainData: any;
-    departmentData: any;
-    motivationData: any;
+    mainData: MainFormData;
+    departmentData: DepartmentPreferences;
+    motivationData: MotivationFormData;
 }
 
 const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData, motivationData }) => {
@@ -48,17 +53,16 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData,
 
     const allComplete = isMainComplete() && isDepartmentsComplete() && isMotivationsComplete();
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (allComplete && !hasApplied) {
-            postData({ mainData, departmentData, motivationData })
-                .then((response) => {
-                    document.cookie = "registered=true; path=/; max-age=31536000";
-                    setHasApplied(true);
-                    window.location.reload();
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            try {
+                await postData({ mainData, departmentData, motivationData });
+                document.cookie = "registered=true; path=/; max-age=31536000";
+                setHasApplied(true);
+                window.location.reload();
+            } catch (error) {
+                console.error(error);
+            }
         }
     };
 
@@ -67,6 +71,8 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData,
             {label}: {value !== "" ? "Filled" : "Not Filled"}
         </li>
     );
+
+    const motivationKeys = ["choice1", "choice2", "choice3"] as const;
 
     return (
         <div className="bg-white h-max z-10 flex flex-col items-center p-6 overflow-y-auto">
@@ -121,16 +127,19 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData,
                                 Motivations: {isMotivationsComplete() ? "Complete" : "Incomplete"}
                             </CollapsibleTrigger>
                             <CollapsibleContent className="mt-2 pl-6">
-                                {[1, 2, 3].map((choice) => (
-                                    <div key={choice} className="mb-2">
-                                        <h6 className="font-medium">Choice {choice}:</h6>
-                                        <ul className="list-disc list-inside ml-4 space-y-1">
-                                            {renderFieldStatus("Work", motivationData[`choice${choice}`].work)}
-                                            {renderFieldStatus("Experience", motivationData[`choice${choice}`].experience)}
-                                            {renderFieldStatus("Expectations", motivationData[`choice${choice}`].expectations)}
-                                        </ul>
-                                    </div>
-                                ))}
+                                {motivationKeys.map((choiceKey, index) => {
+                                    const choice = motivationData[choiceKey];
+                                    return (
+                                        <div key={choiceKey} className="mb-2">
+                                            <h6 className="font-medium">Choice {index + 1}:</h6>
+                                            <ul className="list-disc list-inside ml-4 space-y-1">
+                                                {renderFieldStatus("Work", choice.work)}
+                                                {renderFieldStatus("Experience", choice.experience)}
+                                                {renderFieldStatus("Expectations", choice.expectations)}
+                                            </ul>
+                                        </div>
+                                    );
+                                })}
                             </CollapsibleContent>
                         </Collapsible>
                     </div>
