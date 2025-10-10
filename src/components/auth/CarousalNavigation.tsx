@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-export default function CarousalNavigation({scrollPrev, scrollNext, scrollTo, current, count}: {scrollPrev: () => void, scrollNext: () => void, scrollTo: (index: number) => void, current: number, count: number}) {
+export default function CarousalNavigation({className, scrollPrev, scrollNext, scrollTo, current, count}: {className?: string, scrollPrev: () => void, scrollNext: () => void, scrollTo: (index: number) => void, current: number, count: number}) {
     return (
-        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center justify-center space-x-6 z-10">
+        <div className={`flex items-center justify-center space-x-6 z-10 ${className}`}>
             {/* Left Arrow */}
             <button
                 onClick={scrollPrev}

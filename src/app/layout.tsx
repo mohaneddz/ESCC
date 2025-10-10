@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import Navbar from "@/layout/Navbar";
-import Footer from "@/layout/Footer";
-
 import "@/style/theme.css";
 import "@/style/globals.css";
 import "@/style/components.css";
@@ -38,9 +35,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );

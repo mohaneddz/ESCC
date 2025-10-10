@@ -5,7 +5,12 @@ import { useState } from "react";
 import { AnimatePresence, motion, Variants } from "motion/react";
 
 export default function Navbar() {
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  async function goToRegister() {
+    window.location.href = "/register";
+  }
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -76,7 +81,7 @@ export default function Navbar() {
       </ul>
 
       <div className="hidden md:block">
-        <Button variant="primary" className="click">
+        <Button variant="primary" className="click" onClick={goToRegister}>
           Register
         </Button>
       </div>
@@ -148,7 +153,7 @@ export default function Navbar() {
                 <li className="select-none text-3xl nav-item py-4 hover:bg-accent/50 transition-colors">Events</li>
                 <li className="select-none text-3xl nav-item py-4 hover:bg-accent/50 transition-colors">Contacts</li>
               </ul>
-              <Button variant="primary" className="click mt-4 w-3/4">
+              <Button variant="primary" className="click mt-4 w-3/4" onClick={goToRegister}>
                 Register
               </Button>
             </motion.div>

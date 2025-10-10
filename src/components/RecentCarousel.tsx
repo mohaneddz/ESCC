@@ -12,7 +12,7 @@ import {
     CarouselPrevious,
     type CarouselApi,
 } from "@/components/ui/carousel";
-import CarousalNavigation from "./CarousalNavigation";
+import CarousalNavigation from "@/components/auth/CarousalNavigation";
 
 export default function RecentCarousel() {
     const [api, setApi] = React.useState<CarouselApi>();
