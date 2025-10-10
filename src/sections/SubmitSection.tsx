@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Collapsible,
     CollapsibleContent,
@@ -20,11 +20,6 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData,
     const [deptOpen, setDeptOpen] = useState(false);
     const [motivOpen, setMotivOpen] = useState(false);
     const [hasApplied, setHasApplied] = useState(false);
-
-    useEffect(() => {
-        const cookieExists = document.cookie.includes("registered=true");
-        setHasApplied(cookieExists);
-    }, []);
 
     const isMainComplete = () => {
         return (
@@ -54,7 +49,6 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData,
     const allComplete = isMainComplete() && isDepartmentsComplete() && isMotivationsComplete();
 
     const handleSubmit = () => {
-        document.cookie = "registered=false; path=/; max-age=31536000";
         if (allComplete && !hasApplied) {
             postData({ mainData, departmentData, motivationData })
                 .then((response) => {

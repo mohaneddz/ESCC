@@ -73,9 +73,7 @@ export default function Navbar() {
           {["home", "events", "departments"].map((item) => (
             <Link key={item} href={`#${item}`}>
               <li
-                className={`text-lg nav-item cursor-pointer hover:text-primary transition-colors duration-300 ${
-                  activeSection === item ? "text-primary" : ""
-                }`}
+                className={`text-lg nav-item font-semibold font-lexend cursor-pointer hover:text-primary transition-colors duration-300`}
               >
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </li>
@@ -104,9 +102,8 @@ export default function Navbar() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className={`transition-transform duration-300 ${
-                isMobileMenuOpen ? "rotate-45" : ""
-              }`}
+              className={`transition-transform duration-300 ${isMobileMenuOpen ? "rotate-45" : ""
+                }`}
             >
               <line x1="3" y1="6" x2="21" y2="6" />
               <line
@@ -168,11 +165,10 @@ export default function Navbar() {
                     onClick={toggleMobileMenu}
                   >
                     <div
-                      className={`py-4 px-6 mb-2 rounded-lg font-semibold text-center cursor-pointer transition-colors ${
-                        activeSection === item
+                      className={`py-4 px-6 mb-2 rounded-lg font-semibold text-center cursor-pointer transition-colors ${activeSection === item
                           ? "bg-[#d9f3ff] text-secondary font-bold"
                           : "text-gray-700"
-                      }`}
+                        }`}
                     >
                       {item.charAt(0).toUpperCase() + item.slice(1)}
                     </div>

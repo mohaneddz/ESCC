@@ -11,7 +11,7 @@ export default function ThankYou() {
             
             <div className="center col">
                 <p className="text-lg md:text-xl text-center font-semibold">Your submission will be reviewed soon!</p>
-                <Link href="/" className="mt-2 text-sm md:text-md text-secondary font-semibold underline hover:underline">Go back to Home</Link>
+                <Link href="/" className="mt-2 text-sm md:text-md text-secondary font-semibold underline hover:underline click">Go back to Home</Link>
             </div>
 
             <Image src="svg/misc/check.svg" alt="Thank You" width={100} height={100} className="mt-4" />

@@ -17,7 +17,7 @@ export default function UpcomingCard({ image, title, date, description, show }: 
 
                             <p className="text-gray-800 text-xs font-medium px-1 line-clamp-2 min-h-[3rem]">{description || "This is a brief description of the upcoming event. It provides an overview of what to expect."}</p>
 
-                            <p className="text-gray-600 mb-4 md:text-[0.5rem] text-xs flex items-center">
+                            <p className="text-gray-600 mb-4 md:text-xs text-[0.5rem] flex items-center">
                                 <Image src="/svg/misc/calendar.svg" alt="Calendar Icon" width={16} height={16} className="inline mr-2" />
                                 {date || "Event Date"}</p>
 
