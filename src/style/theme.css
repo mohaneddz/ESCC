@@ -9,6 +9,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   --breakpoint-xl: 1400px;
+  --breakpoint-xxl: 1600px;
 
   --font-title: 'Permanent Marker', cursive;
   --font-text: 'Montserrat', sans-serif;

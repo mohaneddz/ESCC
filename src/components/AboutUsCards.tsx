@@ -14,8 +14,10 @@ export default function AboutUsCards() {
         setImageSize({ width: 400, height: 400 });
       } else if (screenWidth >= 768) {
         setImageSize({ width: 300, height: 300 });
-      } else {
+      } else if (screenWidth >= 500) {
         setImageSize({ width: 200, height: 200 });
+      } else {
+        setImageSize({ width: 150, height: 150 });
       }
     };
 

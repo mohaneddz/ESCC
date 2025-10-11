@@ -77,6 +77,8 @@ export default function BecomeMember({setMainData}: {setMainData?: (data: MainFo
                 verifier={verifyPhone}
                 necessary
             />
+            <div />
+            <div />
             <InputSelect
                 value={school}
                 onChange={(e) => setSchool(e.target.value)}

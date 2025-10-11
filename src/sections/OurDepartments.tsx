@@ -10,7 +10,7 @@ export default function OurDepartments() {
       <div className="container mx-auto">
         <h2 className="text-7xl font-bold font-permanent text-center mb-12 text-black">Our Departments</h2>
 
-        <div className="mx-auto container w-[80vw] md:w-[50vw] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mx-auto container w-[80vw] md:w-[55vw] xl:w-[45vw] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {departments.map((department, index) => (
             <DepartmentCard
               key={index}

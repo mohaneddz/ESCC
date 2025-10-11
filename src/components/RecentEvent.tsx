@@ -12,8 +12,7 @@ export default function RecentEvent({ image, title, date }: RecentEventProps) {
             <Image
                 src={image}
                 alt=""
-                layout="fill"
-                objectFit="cover"
+                fill
                 className="rounded-xl"
             />
             <div className="bg-gradient-to-b from-transparent via-transparent/60 md:via-transparent/40 to-[#00C9FF] absolute inset-0"></div>

@@ -6,9 +6,10 @@ interface FloatProps {
 	delay?: number;
 	children: React.ReactNode;
 	speed?: number;
+	className?: string;
 }
 
-export function Float({ delay = 0, children, speed = 2 }: FloatProps) {
+export function Float({ delay = 0, children, speed = 2, className }: FloatProps) {
 	return (
 		<motion.div
 			animate={{
@@ -20,6 +21,7 @@ export function Float({ delay = 0, children, speed = 2 }: FloatProps) {
 				repeat: Infinity,
 				delay,
 			}}
+			className={className}
 		>
 			{children}
 		</motion.div>

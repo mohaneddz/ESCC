@@ -11,7 +11,7 @@ export default function MotivationSection({ setMotivationData }: { setMotivation
     }, [choice1, choice2, choice3, setMotivationData]);
 
     return (
-        <div className="bg-white z-10 col gap-4 h-screen max-h-[50vh] md:max-h-120 overflow-y-auto md:px-24 px-8 ">
+        <div className="bg-white z-10 col full gap-4 h-screen max-h-[50vh] md:max-h-120 overflow-y-auto md:px-24 px-8 ">
             <div>
                 <h4 className="colored font-bold text-2xl md:text-4xl mb-8 mt-6 text-nowrap">First choice motivation</h4>
                 <div className="col gap-4">

@@ -144,7 +144,7 @@ export default function Navbar() {
               className="fixed top-0 right-0 h-screen w-[280px] bg-white z-[60] shadow-2xl md:hidden flex flex-col"
             >
               {/* Drawer Header */}
-              <div className="p-6">
+              <div className="px-10 py-20">
                 <div className="center gap-3">
                   <Image
                     src="/svg/misc/logo.svg"
@@ -152,7 +152,7 @@ export default function Navbar() {
                     width={32}
                     height={32}
                   />
-                  <span className="text-xl font-black colored">ESC CLUB</span>
+                  <span className="text-5xl font-black colored">ESC CLUB</span>
                 </div>
               </div>
 
@@ -165,7 +165,7 @@ export default function Navbar() {
                     onClick={toggleMobileMenu}
                   >
                     <div
-                      className={`py-4 px-6 mb-2 rounded-lg font-semibold text-center cursor-pointer transition-colors ${activeSection === item
+                      className={`py-4 px-6 mb-2 rounded-lg font-semibold text-4xl text-center cursor-pointer transition-colors ${activeSection === item
                           ? "bg-[#d9f3ff] text-secondary font-bold"
                           : "text-gray-700"
                         }`}
@@ -175,7 +175,7 @@ export default function Navbar() {
                   </Link>
                 ))}
 
-                <Button variant="primary" onClick={goToRegister}>
+                <Button variant="primary" className="text-4xl h-20 mt-20" onClick={goToRegister}>
                   Register
                 </Button>
               </div>

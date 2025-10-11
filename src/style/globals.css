@@ -7,6 +7,34 @@
   --foreground: #171717;
 }
 
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 1440px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1200px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1080px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 9px;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -22,7 +50,7 @@
   }
 }
 
-html{
+html {
   scroll-behavior: smooth;
   scroll-padding-top: 4rem;
   scroll-snap-type: y mandatory;
@@ -38,14 +66,14 @@ body {
   display: relative;
 }
 
-main{
+main {
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   overflow-x: hidden;
   display: relative;
 }
 
-section{
+section {
   scroll-snap-align: start;
   display: flex;
   overflow: hidden;
@@ -57,8 +85,7 @@ section{
     height: auto;
   }
 } */
-
-h2{
+h2 {
   font-size: 6rem;
   font-family: var(--font-permanent);
   color: black;
@@ -67,12 +94,25 @@ h2{
 
 @media (max-width: 768px) {
   h2 {
-    font-size: 4rem;
+    font-size: 5rem;
   }
 }
 
-@media (max-width: 480px) {
-  h2 {
-    font-size: 2rem;
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
   }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.float-animation {
+  animation: float-slow 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+Image{
+  user-select: none;
 }

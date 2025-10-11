@@ -8,7 +8,7 @@ export default function RecentEvents() {
 
       <ESCC />
 
-      <h2 className="z-20">OUR RECENT EVENTS</h2>
+      <h2 className="z-20">Latest Events</h2>
 
       <div className="container mx-auto lg:h-[70vh] w-full">
         <RecentCarousel />
