@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Link from 'next/dist/client/link';
+import Link from 'next/link';
 import { useEffect } from 'react';
 
 export default function Error({
@@ -20,9 +20,14 @@ export default function Error({
       <h2>Not Found</h2>
       <p className='text-2xl'>Could not find requested resource :(</p>
 
-      <Button variant="primary">
-        <Link href="/">Return Home</Link>
-      </Button>
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        <Button variant="secondary" onClick={reset}>
+          Try again
+        </Button>
+        <Button variant="primary" asChild>
+          <Link href="/">Return Home</Link>
+        </Button>
+      </div>
     </div>
   );
 }

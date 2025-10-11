@@ -33,11 +33,10 @@ function Checkbox({
   ...props
 }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
   const [showParticles, setShowParticles] = React.useState(false)
-  const [isChecked, setIsChecked] = React.useState(false)
 
-  const handleCheckedChange = (checked: boolean) => {
-    setIsChecked(checked)
-    if (checked) {
+  const handleCheckedChange = (checked: CheckboxPrimitive.CheckedState) => {
+    const isChecked = checked === true
+    if (isChecked) {
       setShowParticles(true)
       setTimeout(() => setShowParticles(false), 600)
     }

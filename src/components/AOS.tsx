@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, MotionProps } from "motion/react";
-import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import { useMemo, type ComponentPropsWithoutRef, type ComponentType, type ElementType, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type MotionAnimation =
@@ -65,11 +65,17 @@ export default function AOS<T extends ElementType = "div">({
   ...rest
 }: AOSProps<T>) {
   const Component = (as ?? "div") as ElementType;
+  const MotionComponent = useMemo(() => {
+    if (typeof Component === "string") {
+      return motion(Component);
+    }
+
+    return motion(Component as ComponentType<unknown>);
+  }, [Component]);
   const variants = getVariants(animation);
 
   return (
-    <motion.div
-      as={Component as any}
+    <MotionComponent
       className={cn(className)}
       variants={variants}
       initial="hidden"
@@ -79,6 +85,6 @@ export default function AOS<T extends ElementType = "div">({
       {...rest}
     >
       {children}
-    </motion.div>
+    </MotionComponent>
   );
 }
