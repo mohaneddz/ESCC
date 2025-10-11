@@ -1,5 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 
+import { motion } from "motion/react";
+
 import InputSelect from "@/components/auth/InputSelect";
 import type { DepartmentPreferences } from "@/types/registration";
 
@@ -28,17 +30,34 @@ export default function DepartmentSelection({
         []
     );
 
+    const department1Options = useMemo(
+        () =>
+            departmentOptions.filter(
+                (option) =>
+                    option.value === department1 ||
+                    (option.value !== department2 && option.value !== department3)
+            ),
+        [department1, department2, department3, departmentOptions]
+    );
+
     const department2Options = useMemo(
-        () => departmentOptions.filter((option) => option.value !== department1),
-        [departmentOptions, department1]
+        () =>
+            departmentOptions.filter(
+                (option) =>
+                    option.value === department2 ||
+                    (option.value !== department1 && option.value !== department3)
+            ),
+        [departmentOptions, department1, department2, department3]
     );
 
     const department3Options = useMemo(
         () =>
             departmentOptions.filter(
-                (option) => option.value !== department1 && option.value !== department2
+                (option) =>
+                    option.value === department3 ||
+                    (option.value !== department1 && option.value !== department2)
             ),
-        [departmentOptions, department1, department2]
+        [departmentOptions, department1, department2, department3]
     );
 
     useEffect(() => {
@@ -61,7 +80,11 @@ export default function DepartmentSelection({
 
 
     return (
-        <div className="bg-white h-max z-10 flex flex-col items-center w-[70vw] ">
+        <motion.section
+            layout
+            transition={{ duration: 0.1, ease: "easeInOut" }}
+            className="bg-white h-max z-10 flex flex-col items-center w-[70vw] "
+        >
 
             <h3 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-green-400 text-center mb-8">
                 Department Selection
@@ -72,7 +95,7 @@ export default function DepartmentSelection({
                 <InputSelect
                     value={department1}
                     onChange={(e) => setDepartment1(e.target.value)}
-                    options={departmentOptions}
+                    options={department1Options}
                     placeholder="Select your first choice"
                 />
                 <InputSelect
@@ -91,6 +114,6 @@ export default function DepartmentSelection({
             </div>
 
 
-        </div>
+        </motion.section>
     );
 }

@@ -6,11 +6,24 @@ import {
 } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import { Button } from '@/components/ui/button';
+import { motion } from "motion/react";
 import type {
     DepartmentPreferences,
     MainFormData,
     MotivationFormData,
 } from "@/types/registration";
+import {
+    verifyDepartment,
+    verifyEmail,
+    verifyExpectations,
+    verifyExperience,
+    verifyFirstName,
+    verifyLastName,
+    verifyPhone,
+    verifySchool,
+    verifyWork,
+    verifyYear,
+} from "@/utils/verify";
 
 interface SubmitSectionProps {
     mainData: MainFormData;
@@ -34,43 +47,91 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
     const [mainOpen, setMainOpen] = useState(false);
     const [deptOpen, setDeptOpen] = useState(false);
     const [motivOpen, setMotivOpen] = useState(false);
-    const isMainComplete = useMemo(() => (
-        mainData.firstName.trim() !== "" &&
-        mainData.lastName.trim() !== "" &&
-        mainData.email.trim() !== "" &&
-        mainData.phone.trim() !== "" &&
-        mainData.school.trim() !== "" &&
-        mainData.year.trim() !== ""
-    ), [mainData]);
+    const mainValidity = useMemo(
+        () => ({
+            firstName: verifyFirstName(mainData.firstName),
+            lastName: verifyLastName(mainData.lastName),
+            email: verifyEmail(mainData.email),
+            phone: verifyPhone(mainData.phone),
+            school: verifySchool(mainData.school),
+            year: verifyYear(mainData.year),
+        }),
+        [mainData]
+    );
 
-    const isDepartmentsComplete = useMemo(() => (
-        departmentData.department1.trim() !== "" &&
-        departmentData.department2.trim() !== "" &&
-        departmentData.department3.trim() !== ""
-    ), [departmentData]);
+    const departmentsValidity = useMemo(() => {
+        const selections = [
+            departmentData.department1,
+            departmentData.department2,
+            departmentData.department3,
+        ];
+        const allValid = selections.every((dept) => verifyDepartment(dept));
+        const unique = new Set(selections).size === selections.length;
+        return {
+            allValid: allValid && unique,
+            unique,
+        };
+    }, [departmentData]);
 
-    const isMotivationsComplete = useMemo(() => (
-        motivationData.choice1.expectations.trim() !== ""
-    ), [motivationData]);
+    const motivationsValidity = useMemo(
+        () => ({
+            choice1: {
+                work: motivationData.choice1.work ? verifyWork(motivationData.choice1.work) : true,
+                experience: motivationData.choice1.experience
+                    ? verifyExperience(motivationData.choice1.experience)
+                    : true,
+                expectations: verifyExpectations(motivationData.choice1.expectations),
+            },
+            choice2: {
+                work: motivationData.choice2.work ? verifyWork(motivationData.choice2.work) : true,
+                experience: motivationData.choice2.experience
+                    ? verifyExperience(motivationData.choice2.experience)
+                    : true,
+                expectations: motivationData.choice2.expectations
+                    ? verifyExpectations(motivationData.choice2.expectations)
+                    : true,
+            },
+            choice3: {
+                work: motivationData.choice3.work ? verifyWork(motivationData.choice3.work) : true,
+                experience: motivationData.choice3.experience
+                    ? verifyExperience(motivationData.choice3.experience)
+                    : true,
+                expectations: motivationData.choice3.expectations
+                    ? verifyExpectations(motivationData.choice3.expectations)
+                    : true,
+            },
+        }),
+        [motivationData]
+    );
+
+    const isMainComplete = useMemo(
+        () => Object.values(mainValidity).every(Boolean),
+        [mainValidity]
+    );
+
+    const isDepartmentsComplete = departmentsValidity.allValid;
+
+    const isMotivationsComplete = motivationsValidity.choice1.expectations;
 
     const allComplete = useMemo(
         () => isMainComplete && isDepartmentsComplete && isMotivationsComplete,
         [isMainComplete, isDepartmentsComplete, isMotivationsComplete]
     );
 
-    const renderFieldStatus = (label: string, value: string) => {
-        const isFilled = value.trim() !== "";
-        return (
-            <li className={isFilled ? "text-tertiary-dark" : "text-red-600"}>
-                {label}: {isFilled ? "Filled" : "Not Filled"}
-            </li>
-        );
-    };
+    const renderFieldStatus = (label: string, isValid: boolean) => (
+        <li className={isValid ? "text-tertiary-dark" : "text-red-600"}>
+            {label}: {isValid ? "Valid" : "Invalid"}
+        </li>
+    );
 
     const motivationKeys = ["choice1", "choice2", "choice3"] as const;
 
     return (
-        <div className="bg-white h-max z-10 flex flex-col items-center p-6 overflow-y-auto">
+        <motion.section
+            layout
+            transition={{ duration: 0.1, ease: "easeInOut" }}
+            className="bg-white h-max z-10 flex flex-col items-center p-6 overflow-y-auto"
+        >
 
             <h3 className="text-xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-green-400 text-center mb-8">
                 Submit Your Application
@@ -88,12 +149,12 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
                             </CollapsibleTrigger>
                             <CollapsibleContent className="mt-2 pl-6">
                                 <ul className="list-disc list-inside space-y-1">
-                                    {renderFieldStatus("First Name", mainData.firstName)}
-                                    {renderFieldStatus("Last Name", mainData.lastName)}
-                                    {renderFieldStatus("Email", mainData.email)}
-                                    {renderFieldStatus("Phone", mainData.phone)}
-                                    {renderFieldStatus("School", mainData.school)}
-                                    {renderFieldStatus("Year", mainData.year)}
+                                    {renderFieldStatus("First Name", mainValidity.firstName)}
+                                    {renderFieldStatus("Last Name", mainValidity.lastName)}
+                                    {renderFieldStatus("Email", mainValidity.email)}
+                                    {renderFieldStatus("Phone", mainValidity.phone)}
+                                    {renderFieldStatus("School", mainValidity.school)}
+                                    {renderFieldStatus("Year", mainValidity.year)}
                                 </ul>
                             </CollapsibleContent>
                         </Collapsible>
@@ -107,9 +168,10 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
                             </CollapsibleTrigger>
                             <CollapsibleContent className="mt-2 pl-6">
                                 <ul className="list-disc list-inside space-y-1">
-                                    {renderFieldStatus("Department 1", departmentData.department1)}
-                                    {renderFieldStatus("Department 2", departmentData.department2)}
-                                    {renderFieldStatus("Department 3", departmentData.department3)}
+                                    {renderFieldStatus("Department 1", verifyDepartment(departmentData.department1))}
+                                    {renderFieldStatus("Department 2", verifyDepartment(departmentData.department2))}
+                                    {renderFieldStatus("Department 3", verifyDepartment(departmentData.department3))}
+                                    {renderFieldStatus("Unique Choices", departmentsValidity.unique)}
                                 </ul>
                             </CollapsibleContent>
                         </Collapsible>
@@ -128,9 +190,9 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
                                         <div key={choiceKey} className="mb-2">
                                             <h6 className="font-medium">Choice {index + 1}:</h6>
                                             <ul className="list-disc list-inside ml-4 space-y-1">
-                                                {renderFieldStatus("Work", choice.work)}
-                                                {renderFieldStatus("Experience", choice.experience)}
-                                                {renderFieldStatus("Expectations", choice.expectations)}
+                                                {renderFieldStatus("Work", motivationsValidity[choiceKey].work)}
+                                                {renderFieldStatus("Experience", motivationsValidity[choiceKey].experience)}
+                                                {renderFieldStatus("Expectations", motivationsValidity[choiceKey].expectations)}
                                             </ul>
                                         </div>
                                     );
@@ -151,7 +213,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
             >
                 {isSubmitting ? "Submitting..." : hasApplied ? "Submitted" : "Submit"}
             </Button>
-        </div>
+        </motion.section>
     );
 };
 

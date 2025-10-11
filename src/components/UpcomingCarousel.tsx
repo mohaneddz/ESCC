@@ -36,6 +36,7 @@ export default function UpcomingCarousel() {
                         >
                             <UpcomingCard
                                 show={event.show}
+                                open={event.open}
                                 image={event.image}
                                 title={event.title}
                                 date={event.date}

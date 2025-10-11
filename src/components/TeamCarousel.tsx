@@ -46,7 +46,7 @@ export default function TeamCarousel() {
       </CarouselContent>
       <button
         onClick={() => api?.scrollPrev()}
-        className="absolute top-1/2 -translate-y-1/2 md:-left-4 left-4 bg-transparent border-none click"
+        className="absolute top-1/2 -translate-y-1/2 md:-left-4 left-20 bg-transparent border-none click"
       >
         <Image
           src="/svg/misc/arrow.svg"
@@ -58,7 +58,7 @@ export default function TeamCarousel() {
       </button>
       <button
         onClick={() => api?.scrollNext()}
-        className="absolute top-1/2 -translate-y-1/2 md:-right-4 right-4 bg-transparent border-none click"
+        className="absolute top-1/2 -translate-y-1/2 md:-right-4 right-20 bg-transparent border-none click"
       >
         <Image
           src="/svg/misc/arrow.svg"

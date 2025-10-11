@@ -4,7 +4,8 @@ import Input from "@/components/auth/InputText";
 import InputSelect from "@/components/auth/InputSelect";
 import React from "react";
 
-import { useState, useEffect } from "react";
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 import {verifyFirstName, verifyLastName, verifyEmail, verifyPhone} from "@/utils/verify";
 import type { MainFormData } from "@/types/registration";
 
@@ -47,7 +48,11 @@ export default function BecomeMember({setMainData}: {setMainData?: (data: MainFo
     }, [firstName, lastName, email, phone, school, year, setMainData]);
 
     return (
-        <div className="bg-white h-max w-full max-w-[70vw] z-10 center col gap-4">
+        <motion.section
+            layout
+            transition={{ duration: 0.1, ease: "easeInOut" }}
+            className="bg-white h-max w-full max-w-[70vw] z-10 center col gap-4"
+        >
             <h3 className="text-3xl md:text-4xl font-bold colored mb-4">Become a Member</h3>
             <Input
                 placeholder="Enter your email"
@@ -91,6 +96,6 @@ export default function BecomeMember({setMainData}: {setMainData?: (data: MainFo
             />
 
 
-        </div>
+        </motion.section>
     );
 };

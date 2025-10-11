@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import type { ChangeEventHandler } from "react";
 
 type SelectOption = { title: string; value: string };
@@ -12,7 +13,11 @@ type InputSelectProps = {
 
 function InputSelect({ value, onChange, options, placeholder }: InputSelectProps) {
     return (
-        <div className="w-full">
+        <motion.div
+            layout
+            transition={{ duration: 0.1, ease: "easeInOut" }}
+            className="w-full"
+        >
             <select
                 className="p-2 rounded border-none w-full focus:outline-none focus:ring-2 focus:ring-secondary cursor-pointer"
                 value={value}
@@ -30,7 +35,7 @@ function InputSelect({ value, onChange, options, placeholder }: InputSelectProps
                 ))}
             </select>
             <div className="h-[2px] bg-gradient-to-r from-tertiary to-secondary" />
-        </div>
+        </motion.div>
     );
 }
 

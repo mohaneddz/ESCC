@@ -9,7 +9,7 @@ export default function Footer() {
 
       <div className="container mx-auto grid md:gap-0 md:grid-cols-2 h-full z-30 ">
 
-        <div className="center col md:pl-10 pt-8">
+        <div className="center col md:pl-10 pt-10">
           <p className="md:text-2xl font-bold text-nowrap">Developed by</p>
 
           <div className="center md:gap-8 my-4 font-black md:text-5xl text-xl text-nowrap gap-4">

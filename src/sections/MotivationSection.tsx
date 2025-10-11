@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Input from "@/components/auth/InputText";
+import { motion } from "motion/react";
 
 export default function MotivationSection({ setMotivationData }: { setMotivationData?: (data: { choice1: { work: string, experience: string, expectations: string }, choice2: { work: string, experience: string, expectations: string }, choice3: { work: string, experience: string, expectations: string } }) => void }) {
     const [choice1, setChoice1] = useState({ work: "", experience: "", expectations: "" });
@@ -11,7 +12,11 @@ export default function MotivationSection({ setMotivationData }: { setMotivation
     }, [choice1, choice2, choice3, setMotivationData]);
 
     return (
-        <div className="bg-white z-10 col full gap-4 w-full h-screen max-h-[screen] md:max-h-120 overflow-y-auto md:px-24 px-8 ">
+        <motion.section
+            layout
+            transition={{ duration: 0.1, ease: "easeInOut" }}
+            className="bg-white z-10 col full gap-4 w-full h-screen max-h-[screen] md:max-h-120 overflow-y-auto md:px-24 px-8 "
+        >
             <div>
                 <h4 className="colored font-bold text-2xl md:text-4xl mb-8 mt-6 text-nowrap">First choice motivation</h4>
                 <div className="col gap-4">
@@ -36,6 +41,6 @@ export default function MotivationSection({ setMotivationData }: { setMotivation
                     <Input placeholder="What are your expectations from this department?" value={choice3.expectations} onChange={(e) => setChoice3({ ...choice3, expectations: e.target.value })} />
                 </div>
             </div>
-        </div>
+        </motion.section>
     );
 }

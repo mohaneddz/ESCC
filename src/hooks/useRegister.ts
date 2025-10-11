@@ -16,6 +16,18 @@ import type {
   MainFormData,
   MotivationFormData,
 } from "@/types/registration";
+import {
+  verifyDepartment,
+  verifyEmail,
+  verifyExpectations,
+  verifyExperience,
+  verifyFirstName,
+  verifyLastName,
+  verifyPhone,
+  verifySchool,
+  verifyWork,
+  verifyYear,
+} from "@/utils/verify";
 
 export type StepKey = "main" | "departments" | "motivations" | "submit";
 
@@ -91,25 +103,35 @@ export function useRegister(): UseRegisterReturn {
 
   const isMainComplete = useMemo(
     () =>
-      mainData.firstName.trim() !== "" &&
-      mainData.lastName.trim() !== "" &&
-      mainData.email.trim() !== "" &&
-      mainData.phone.trim() !== "" &&
-      mainData.school.trim() !== "" &&
-      mainData.year.trim() !== "",
+      verifyFirstName(mainData.firstName) &&
+      verifyLastName(mainData.lastName) &&
+      verifyEmail(mainData.email) &&
+      verifyPhone(mainData.phone) &&
+      verifySchool(mainData.school) &&
+      verifyYear(mainData.year),
     [mainData]
   );
 
-  const isDepartmentsComplete = useMemo(
-    () =>
-      departmentData.department1.trim() !== "" &&
-      departmentData.department2.trim() !== "" &&
-      departmentData.department3.trim() !== "",
+  const departmentsSelections = useMemo(
+    () => [
+      departmentData.department1,
+      departmentData.department2,
+      departmentData.department3,
+    ],
     [departmentData]
   );
 
+  const isDepartmentsComplete = useMemo(() => {
+    if (departmentsSelections.some((selection) => !verifyDepartment(selection))) {
+      return false;
+    }
+
+    const uniqueCount = new Set(departmentsSelections).size;
+    return uniqueCount === departmentsSelections.length;
+  }, [departmentsSelections]);
+
   const isMotivationsComplete = useMemo(
-    () => motivationData.choice1.expectations.trim() !== "",
+    () => verifyExpectations(motivationData.choice1.expectations),
     [motivationData]
   );
 

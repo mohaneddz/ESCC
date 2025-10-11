@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 
-export default function UpcomingCard({ image, title, date, description, show }: { image?: string, title?: string, date?: string, description?: string, show?: boolean }) {
+export default function UpcomingCard({ image, title, date, description, show, open }: { image?: string, title?: string, date?: string, description?: string, show?: boolean, open?: boolean }) {
     return (
         <div className="snap-center shrink-0 relative aspect-[3/4] rounded-xl shadow-lg w-100 md:w-80 z-30 overflow-hidden flex flex-col bg-white/10 md:hover:scale-102 hover:shadow-lg transition-all md:hover:-translate-y-1">
 
@@ -22,9 +22,15 @@ export default function UpcomingCard({ image, title, date, description, show }: 
                                 {date || "Event Date"}</p>
 
 
-                            <Button variant="card_white" className="md:mt-4 font-lexend flex justify-between gap-2 text-xl absolute bottom-4 left-4 w-[90%]">
-                                Register
-                                <Image src="/svg/misc/button-arrows.svg" alt="" width={16} height={16} />
+                            <Button
+                                variant="card_white"
+                                className="md:mt-4 font-lexend flex justify-between gap-2 text-xl absolute bottom-4 left-4 w-[90%]"
+                                disabled={!open}
+                            >
+                                {open ? "Register!" : "Soon.."}
+                                {open && (
+                                    <Image src="/svg/misc/button-arrows.svg" alt="" width={16} height={16} />
+                                )}
                             </Button>
 
                         </div>

@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "motion/react";
 import { useState } from "react";
 
 export default function Input({
@@ -18,7 +19,11 @@ export default function Input({
   const isValid = (verifier ? verifier(value) : true) && !(necessary && value.trim() === '');
 
   return (
-    <div className="w-full relative">
+    <motion.div
+      layout
+      transition={{ duration: 0.1, ease: "easeInOut" }}
+      className="w-full relative"
+    >
       <label
         className={`absolute left-1 transition-all duration-200 pointer-events-none truncate text-nowrap
           ${value || focused ? "top-0 text-[0.5rem] md:text-xs" : "top-5 text-sm md:text-base"}
@@ -36,6 +41,6 @@ export default function Input({
         onBlur={() => setFocused(false)}
       />
       <div className={`h-[2px] ${isValid ? "bg-gradient-to-r from-tertiary to-secondary" : "bg-red-500"}`}></div>
-    </div>
+    </motion.div>
   );
 }
