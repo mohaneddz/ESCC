@@ -1,0 +1,269 @@
+"use client";
+
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
+
+import type { CarouselApi } from "@/components/ui/carousel";
+import { postData } from "@/server/post";
+import type {
+  DepartmentPreferences,
+  MainFormData,
+  MotivationFormData,
+} from "@/types/registration";
+
+export type StepKey = "main" | "departments" | "motivations" | "submit";
+
+type UseRegisterReturn = {
+  isRegistered: boolean | null;
+  allowed: StepKey[];
+  currPage: number;
+  setCarouselApi: Dispatch<SetStateAction<CarouselApi | undefined>>;
+  mainData: MainFormData;
+  setMainData: (data: MainFormData) => void;
+  departmentData: DepartmentPreferences;
+  setDepartmentData: (data: DepartmentPreferences) => void;
+  motivationData: MotivationFormData;
+  setMotivationData: (data: MotivationFormData) => void;
+  scrollPrev: () => void;
+  scrollNext: () => void;
+  scrollTo: (index: number) => void;
+  disablePrev: boolean;
+  disableNext: boolean;
+  canSubmit: boolean;
+  isSubmitting: boolean;
+  hasApplied: boolean;
+  handleSubmit: () => Promise<void>;
+};
+
+export function useRegister(): UseRegisterReturn {
+  const [api, setApi] = useState<CarouselApi>();
+  const [currPage, setCurrPage] = useState(0);
+  const [isRegistered, setIsRegistered] = useState<boolean | null>(null);
+  const [allowed, setAllowed] = useState<StepKey[]>(["main"]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasApplied, setHasApplied] = useState(false);
+
+  const [mainData, setMainDataState] = useState<MainFormData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    school: "ensia",
+    year: "1",
+  });
+
+  const [departmentData, setDepartmentDataState] = useState<DepartmentPreferences>({
+    department1: "",
+    department2: "",
+    department3: "",
+  });
+
+  const [motivationData, setMotivationDataState] = useState<MotivationFormData>({
+    choice1: { work: "", experience: "", expectations: "" },
+    choice2: { work: "", experience: "", expectations: "" },
+    choice3: { work: "", experience: "", expectations: "" },
+  });
+
+  useEffect(() => {
+    const cookieExists = document.cookie.includes("registered=true");
+    setIsRegistered(cookieExists);
+  }, []);
+
+  useEffect(() => {
+    if (!api) return;
+
+    setCurrPage(api.selectedScrollSnap());
+
+    const handleSelect = () => setCurrPage(api.selectedScrollSnap());
+
+    api.on("select", handleSelect);
+
+    return () => {
+      api.off("select", handleSelect);
+    };
+  }, [api]);
+
+  const isMainComplete = useMemo(
+    () =>
+      mainData.firstName.trim() !== "" &&
+      mainData.lastName.trim() !== "" &&
+      mainData.email.trim() !== "" &&
+      mainData.phone.trim() !== "" &&
+      mainData.school.trim() !== "" &&
+      mainData.year.trim() !== "",
+    [mainData]
+  );
+
+  const isDepartmentsComplete = useMemo(
+    () =>
+      departmentData.department1.trim() !== "" &&
+      departmentData.department2.trim() !== "" &&
+      departmentData.department3.trim() !== "",
+    [departmentData]
+  );
+
+  const isMotivationsComplete = useMemo(
+    () => motivationData.choice1.expectations.trim() !== "",
+    [motivationData]
+  );
+
+  const allComplete = useMemo(
+    () => isMainComplete && isDepartmentsComplete && isMotivationsComplete,
+    [isMainComplete, isDepartmentsComplete, isMotivationsComplete]
+  );
+
+  useEffect(() => {
+    setAllowed((prev) => {
+      const nextSteps: StepKey[] = ["main"];
+
+      if (isMainComplete) {
+        nextSteps.push("departments");
+      }
+
+      if (isMainComplete && isDepartmentsComplete) {
+        nextSteps.push("motivations");
+      }
+
+      if (allComplete) {
+        nextSteps.push("submit");
+      }
+
+      if (
+        prev.length === nextSteps.length &&
+        prev.every((step, index) => step === nextSteps[index])
+      ) {
+        return prev;
+      }
+
+      return nextSteps;
+    });
+  }, [allComplete, isDepartmentsComplete, isMainComplete]);
+
+  useEffect(() => {
+    if (!api) return;
+    api.reInit();
+  }, [api, allowed.length]);
+
+  useEffect(() => {
+    if (!api) return;
+    const maxIndex = allowed.length - 1;
+    if (currPage > maxIndex) {
+      api.scrollTo(maxIndex);
+    }
+  }, [allowed.length, api, currPage]);
+
+  const canSubmit = allComplete && !isSubmitting && !hasApplied;
+
+  const handleSubmit = useCallback(async () => {
+    if (!canSubmit) return;
+    try {
+      setIsSubmitting(true);
+      await postData({ mainData, departmentData, motivationData });
+      document.cookie = "registered=true; path=/; max-age=31536000";
+      setHasApplied(true);
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [canSubmit, departmentData, mainData, motivationData]);
+
+  const scrollPrev = useCallback(() => {
+    if (!api) return;
+    if (currPage <= 0) return;
+    api.scrollPrev();
+  }, [api, currPage]);
+
+  const scrollNext = useCallback(() => {
+    if (!api || allowed.length === 0) return;
+
+    const lastIndex = allowed.length - 1;
+
+    if (currPage < lastIndex) {
+      api.scrollNext();
+      return;
+    }
+
+    if (allowed[lastIndex] === "submit") {
+      void handleSubmit();
+    }
+  }, [allowed, api, currPage, handleSubmit]);
+
+  const scrollTo = useCallback(
+    (index: number) => {
+      if (!api) return;
+      if (index < 0 || index >= allowed.length) return;
+      api.scrollTo(index);
+    },
+    [api, allowed.length]
+  );
+
+  const disablePrev = !api || currPage <= 0;
+
+  const disableNext = useMemo(() => {
+    if (!api || allowed.length === 0) return true;
+
+    const lastIndex = allowed.length - 1;
+
+    if (currPage < lastIndex) {
+      return false;
+    }
+
+    const lastStep = allowed[lastIndex];
+    if (lastStep === "submit") {
+      return !canSubmit;
+    }
+
+    return true;
+  }, [api, allowed, canSubmit, currPage]);
+
+  const updateMainData = useCallback(
+    (data: MainFormData) => {
+      setMainDataState(data);
+    },
+    [setMainDataState]
+  );
+
+  const updateDepartmentData = useCallback(
+    (data: DepartmentPreferences) => {
+      setDepartmentDataState(data);
+    },
+    [setDepartmentDataState]
+  );
+
+  const updateMotivationData = useCallback(
+    (data: MotivationFormData) => {
+      setMotivationDataState(data);
+    },
+    [setMotivationDataState]
+  );
+
+  return {
+    isRegistered,
+    allowed,
+    currPage,
+    setCarouselApi: setApi,
+    mainData,
+    setMainData: updateMainData,
+    departmentData,
+    setDepartmentData: updateDepartmentData,
+    motivationData,
+    setMotivationData: updateMotivationData,
+    scrollPrev,
+    scrollNext,
+    scrollTo,
+    disablePrev,
+    disableNext,
+    canSubmit,
+    isSubmitting,
+    hasApplied,
+    handleSubmit,
+  };
+}

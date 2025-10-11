@@ -1,13 +1,36 @@
 import Image from "next/image";
 
-export default function CarousalNavigation({className, scrollPrev, scrollNext, scrollTo, current, count}: {className?: string, scrollPrev: () => void, scrollNext: () => void, scrollTo: (index: number) => void, current: number, count: number}) {
+type CarousalNavigationProps = {
+    className?: string;
+    scrollPrev: () => void;
+    scrollNext: () => void;
+    scrollTo: (index: number) => void;
+    current: number;
+    count: number;
+    disablePrev?: boolean;
+    disableNext?: boolean;
+};
+
+export default function CarousalNavigation({
+    className,
+    scrollPrev,
+    scrollNext,
+    scrollTo,
+    current,
+    count,
+    disablePrev = false,
+    disableNext = false,
+}: CarousalNavigationProps) {
     return (
-        <div className={`flex items-center justify-center space-x-6 z-10 ${className}`}>
+        <div className={`flex items-center justify-center space-x-6 z-10 ${className ?? ""}`}>
             {/* Left Arrow */}
             <button
+                type="button"
                 onClick={scrollPrev}
-                className="click "
+                className={`click ${disablePrev ? "opacity-50 cursor-not-allowed" : ""}`}
                 aria-label="Previous slide"
+                aria-disabled={disablePrev}
+                disabled={disablePrev}
             >
                 <Image
                     src="/svg/misc/arrow.svg"
@@ -22,10 +45,10 @@ export default function CarousalNavigation({className, scrollPrev, scrollNext, s
             <div className="flex items-center space-x-2">
                 {Array.from({ length: count }).map((_, index) => (
                     <button
+                        type="button"
                         key={index}
                         onClick={() => scrollTo(index)}
-                        className={`h-3 rounded-full transition-all duration-300 ease-in-out ${index === current ? "w-6 bg-cyan-400" : "w-3 bg-gray-300"
-                            }`}
+                        className={`h-3 rounded-full transition-all duration-300 ease-in-out ${index === current ? "w-6 bg-cyan-400" : "w-3 bg-gray-300"}`}
                         aria-label={`Go to slide ${index + 1}`}
                     />
                 ))}
@@ -33,9 +56,12 @@ export default function CarousalNavigation({className, scrollPrev, scrollNext, s
 
             {/* Right Arrow */}
             <button
+                type="button"
                 onClick={scrollNext}
-                className="click"
+                className={`click ${disableNext ? "opacity-50 cursor-not-allowed" : ""}`}
                 aria-label="Next slide"
+                aria-disabled={disableNext}
+                disabled={disableNext}
             >
                 <Image
                     src="/svg/misc/arrow.svg"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
     Collapsible,
     CollapsibleContent,
@@ -6,8 +6,6 @@ import {
 } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import { Button } from '@/components/ui/button';
-
-import { postData } from "@/server/post";
 import type {
     DepartmentPreferences,
     MainFormData,
@@ -18,59 +16,56 @@ interface SubmitSectionProps {
     mainData: MainFormData;
     departmentData: DepartmentPreferences;
     motivationData: MotivationFormData;
+    onSubmit: () => void;
+    canSubmit: boolean;
+    isSubmitting: boolean;
+    hasApplied: boolean;
 }
 
-const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData, motivationData }) => {
+const SubmitSection: React.FC<SubmitSectionProps> = ({
+    mainData,
+    departmentData,
+    motivationData,
+    onSubmit,
+    canSubmit,
+    isSubmitting,
+    hasApplied,
+}) => {
     const [mainOpen, setMainOpen] = useState(false);
     const [deptOpen, setDeptOpen] = useState(false);
     const [motivOpen, setMotivOpen] = useState(false);
-    const [hasApplied, setHasApplied] = useState(false);
+    const isMainComplete = useMemo(() => (
+        mainData.firstName.trim() !== "" &&
+        mainData.lastName.trim() !== "" &&
+        mainData.email.trim() !== "" &&
+        mainData.phone.trim() !== "" &&
+        mainData.school.trim() !== "" &&
+        mainData.year.trim() !== ""
+    ), [mainData]);
 
-    const isMainComplete = () => {
-        return (
-            mainData.firstName !== "" &&
-            mainData.lastName !== "" &&
-            mainData.email !== "" &&
-            mainData.phone !== "" &&
-            mainData.school !== "" &&
-            mainData.year !== ""
-        );
-    };
+    const isDepartmentsComplete = useMemo(() => (
+        departmentData.department1.trim() !== "" &&
+        departmentData.department2.trim() !== "" &&
+        departmentData.department3.trim() !== ""
+    ), [departmentData]);
 
-    const isDepartmentsComplete = () => {
-        return (
-            departmentData.department1 !== "" &&
-            departmentData.department2 !== "" &&
-            departmentData.department3 !== ""
-        );
-    };
+    const isMotivationsComplete = useMemo(() => (
+        motivationData.choice1.expectations.trim() !== ""
+    ), [motivationData]);
 
-    const isMotivationsComplete = () => {
-        return (
-            motivationData.choice1.expectations !== ""
-        );
-    };
-
-    const allComplete = isMainComplete() && isDepartmentsComplete() && isMotivationsComplete();
-
-    const handleSubmit = async () => {
-        if (allComplete && !hasApplied) {
-            try {
-                await postData({ mainData, departmentData, motivationData });
-                document.cookie = "registered=true; path=/; max-age=31536000";
-                setHasApplied(true);
-                window.location.reload();
-            } catch (error) {
-                console.error(error);
-            }
-        }
-    };
-
-    const renderFieldStatus = (label: string, value: string) => (
-        <li className={value !== "" ? "text-green-600" : "text-red-600"}>
-            {label}: {value !== "" ? "Filled" : "Not Filled"}
-        </li>
+    const allComplete = useMemo(
+        () => isMainComplete && isDepartmentsComplete && isMotivationsComplete,
+        [isMainComplete, isDepartmentsComplete, isMotivationsComplete]
     );
+
+    const renderFieldStatus = (label: string, value: string) => {
+        const isFilled = value.trim() !== "";
+        return (
+            <li className={isFilled ? "text-tertiary-dark" : "text-red-600"}>
+                {label}: {isFilled ? "Filled" : "Not Filled"}
+            </li>
+        );
+    };
 
     const motivationKeys = ["choice1", "choice2", "choice3"] as const;
 
@@ -85,11 +80,11 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData,
 
                 <div className="space-y-4 overflow-y-auto max-h-70">
 
-                    <div className={isMainComplete() ? "text-green-600" : "text-red-600"}>
+                    <div className={isMainComplete ? "text-tertiary-dark" : "text-red-600"}>
                         <Collapsible open={mainOpen} onOpenChange={setMainOpen}>
                             <CollapsibleTrigger className="flex items-center cursor-pointer gap-2 w-full text-left text-sm md:text-lg hover:bg-gray-100 p-2 rounded font-semibold">
                                 <ChevronDown className={`w-4 h-4 transition-transform ${mainOpen ? 'rotate-180' : ''}`} />
-                                Main Information: {isMainComplete() ? "Complete" : "Incomplete"}
+                                Main Information: {isMainComplete ? "Complete" : "Incomplete"}
                             </CollapsibleTrigger>
                             <CollapsibleContent className="mt-2 pl-6">
                                 <ul className="list-disc list-inside space-y-1">
@@ -104,11 +99,11 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData,
                         </Collapsible>
                     </div>
 
-                    <div className={isDepartmentsComplete() ? "text-green-600" : "text-red-600"}>
+                    <div className={isDepartmentsComplete ? "text-tertiary-dark" : "text-red-600"}>
                         <Collapsible open={deptOpen} onOpenChange={setDeptOpen}>
                             <CollapsibleTrigger className="flex items-center cursor-pointer gap-2 w-full text-left text-sm md:text-lg hover:bg-gray-100 p-2 rounded font-semibold">
                                 <ChevronDown className={`w-4 h-4 transition-transform ${deptOpen ? 'rotate-180' : ''}`} />
-                                Department Selection: {isDepartmentsComplete() ? "Complete" : "Incomplete"}
+                                Department Selection: {isDepartmentsComplete ? "Complete" : "Incomplete"}
                             </CollapsibleTrigger>
                             <CollapsibleContent className="mt-2 pl-6">
                                 <ul className="list-disc list-inside space-y-1">
@@ -120,11 +115,11 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData,
                         </Collapsible>
                     </div>
 
-                    <div className={isMotivationsComplete() ? "text-green-600" : "text-red-600"}>
+                    <div className={isMotivationsComplete ? "text-tertiary-dark" : "text-red-600"}>
                         <Collapsible open={motivOpen} onOpenChange={setMotivOpen}>
                             <CollapsibleTrigger className="flex items-center cursor-pointer gap-2 w-full text-left text-sm md:text-lg hover:bg-gray-100 p-2 rounded font-semibold">
                                 <ChevronDown className={`w-4 h-4 transition-transform ${motivOpen ? 'rotate-180' : ''}`} />
-                                Motivations: {isMotivationsComplete() ? "Complete" : "Incomplete"}
+                                Motivations: {isMotivationsComplete ? "Complete" : "Incomplete"}
                             </CollapsibleTrigger>
                             <CollapsibleContent className="mt-2 pl-6">
                                 {motivationKeys.map((choiceKey, index) => {
@@ -150,11 +145,11 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ mainData, departmentData,
             )}
             <Button
                 variant="primary"
-                className={`mt-4 ${!allComplete || hasApplied ? "opacity-50 cursor-not-allowed" : ""}`}
-                onClick={handleSubmit}
-                disabled={!allComplete || hasApplied}
+                className={`mt-4 ${(!allComplete || !canSubmit) ? "opacity-50 cursor-not-allowed" : ""}`}
+                onClick={onSubmit}
+                disabled={!allComplete || !canSubmit}
             >
-                Submit
+                {isSubmitting ? "Submitting..." : hasApplied ? "Submitted" : "Submit"}
             </Button>
         </div>
     );

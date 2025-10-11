@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 export default function Hero() {
 
   return (
-    <main className="relative w-screen h-[75vh] md:h-screen " id="home">
+    <main className="relative w-screen h-[80vh] md:h-screen " id="home">
 
       <Image
         src="/image/misc/hero.png" alt="Hero Image" width={1920} height={1080}

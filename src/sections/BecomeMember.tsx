@@ -47,7 +47,7 @@ export default function BecomeMember({setMainData}: {setMainData?: (data: MainFo
     }, [firstName, lastName, email, phone, school, year, setMainData]);
 
     return (
-        <div className="bg-white h-max z-10 center col gap-4">
+        <div className="bg-white h-max w-full max-w-[70vw] z-10 center col gap-4">
             <h3 className="text-3xl md:text-4xl font-bold colored mb-4">Become a Member</h3>
             <Input
                 placeholder="Enter your email"

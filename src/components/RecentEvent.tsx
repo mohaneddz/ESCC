@@ -13,7 +13,7 @@ export default function RecentEvent({ image, title, date }: RecentEventProps) {
                 src={image}
                 alt=""
                 fill
-                className="rounded-xl"
+                className="rounded-xl object-cover"
             />
             <div className="bg-gradient-to-b from-transparent via-transparent/60 md:via-transparent/40 to-[#00C9FF] absolute inset-0"></div>
 
