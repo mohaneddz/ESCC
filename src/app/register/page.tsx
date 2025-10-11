@@ -49,16 +49,16 @@ export default function RegisterPage() {
                 <motion.div
                     layout
                     transition={{ duration: 0.1, ease: "easeInOut" }}
-                    className={`relative bg-white z-10 md:rounded-xl md:w-max md:h-max h-screen w-screen${isRegistered ? " center" : ""}`}
+                    className={`relative bg-white z-10 md:rounded-xl md:w-max md:h-max h-screen w-screen ${isRegistered ? " center" : ""}`}
                 >
 
                     <motion.div
                         layout
                         transition={{ duration: 0.1, ease: "easeInOut" }}
-                        className="z-1 md:p-8 pt-8 rounded-xl center col gap-8 h-screen w-screen md:h-auto md:w-auto"
+                        className="z-1 md:p-8 pt-8 rounded-xl center col gap-8 h-screen w-screen md:h-max md:w-auto"
                     >
                         <Carousel
-                            className="center max-w-screen md:max-h-120 md:max-w-2xl max-h-screen overflow-y-hidden"
+                            className="center max-w-screen md:max-h-160 md:max-w-2xl max-h-screen overflow-y-auto"
                             opts={{ align: "center", loop: false }}
                             setApi={setCarouselApi}
                         >

@@ -68,6 +68,7 @@ export function useRegister(): UseRegisterReturn {
     phone: "",
     school: "ensia",
     year: "1",
+    instagram: "",
   });
 
   const [departmentData, setDepartmentDataState] = useState<DepartmentPreferences>({

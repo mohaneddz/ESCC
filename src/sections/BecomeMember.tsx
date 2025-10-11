@@ -17,6 +17,7 @@ export default function BecomeMember({setMainData}: {setMainData?: (data: MainFo
     const [phone, setPhone] = useState("");
     const [school, setSchool] = useState("ensia");
     const [year, setYear] = useState("1");
+    const [instagram, setInstagram] = useState("");
 
     const schoolsList = [
         { title: "ENSIA", value: "ensia" },
@@ -44,14 +45,15 @@ export default function BecomeMember({setMainData}: {setMainData?: (data: MainFo
             phone,
             school,
             year,
+            instagram,
         });
-    }, [firstName, lastName, email, phone, school, year, setMainData]);
+    }, [firstName, lastName, email, phone, school, year, instagram, setMainData]);
 
     return (
         <motion.section
             layout
             transition={{ duration: 0.1, ease: "easeInOut" }}
-            className="bg-white h-max w-full max-w-[70vw] z-10 center col gap-4"
+            className="bg-white h-max w-full max-w-[70vw] z-10 center col gap-4 overflow-y-auto"
         >
             <h3 className="text-3xl md:text-4xl font-bold colored mb-4">Become a Member</h3>
             <Input
@@ -81,6 +83,11 @@ export default function BecomeMember({setMainData}: {setMainData?: (data: MainFo
                 onChange={(e) => setPhone(e.target.value)}
                 verifier={verifyPhone}
                 necessary
+            />
+            <Input
+                placeholder="Enter your Instagram username"
+                value={instagram}
+                onChange={(e) => setInstagram(e.target.value)}
             />
             <div />
             <div />

@@ -15,7 +15,7 @@ export default function MotivationSection({ setMotivationData }: { setMotivation
         <motion.section
             layout
             transition={{ duration: 0.1, ease: "easeInOut" }}
-            className="bg-white z-10 col full gap-4 w-full h-screen max-h-[screen] md:max-h-120 overflow-y-auto md:px-24 px-8 "
+            className="bg-white z-10 col full gap-4 w-full h-screen max-h-screen md:max-h-160 overflow-y-auto md:px-24 px-8 "
         >
             <div>
                 <h4 className="colored font-bold text-2xl md:text-4xl mb-8 mt-6 text-nowrap">First choice motivation</h4>

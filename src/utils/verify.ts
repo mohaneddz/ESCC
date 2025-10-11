@@ -36,13 +36,13 @@ export function verifyDepartment(value: string): boolean {
 }
 
 export function verifyWork(value: string): boolean {
-	return value.trim().length >= 10; // Minimum 10 characters
+	return value.trim().length >= 0; // Minimum 10 characters
 }
 
 export function verifyExperience(value: string): boolean {
-	return value.trim().length >= 10; // Minimum 10 characters
+	return value.trim().length >= 0; // Minimum 10 characters
 }
 
 export function verifyExpectations(value: string): boolean {
-	return value.trim().length >= 10; // Minimum 10 characters
+	return value.trim().length >= 0; // Minimum 0 characters
 }

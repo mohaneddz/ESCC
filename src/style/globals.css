@@ -76,7 +76,6 @@ main {
 section {
   scroll-snap-align: start;
   display: flex;
-  overflow: hidden;
   display: relative;
 }
 

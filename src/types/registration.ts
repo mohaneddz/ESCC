@@ -5,6 +5,7 @@ export interface MainFormData {
   phone: string;
   school: string;
   year: string;
+  instagram?: string;
 }
 
 export interface DepartmentPreferences {
