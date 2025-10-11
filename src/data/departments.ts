@@ -5,6 +5,11 @@ export const departments = [
     image: "/svg/icon/department/sport.svg",
   },
   {
+    title: "Executive Team",
+    description: "Leads the organization, sets strategic direction, and ensures effective operations.",
+    image: "/svg/icon/department/executive.svg",
+  },
+  {
     title: "Culture Department",
     description: "Celebrates diversity and promotes cultural awareness through events and initiatives.",
     image: "/svg/icon/department/culture.svg",
@@ -29,4 +34,14 @@ export const departments = [
     description: "Equips students with coding and software development skills through courses and projects.",
     image: "/svg/icon/department/dev.svg",
   },
+  {
+    title: "Marketing Department",
+    description: "Teaches marketing strategies, branding, and communication to promote events and initiatives.",
+    image: "/svg/icon/department/marketing.svg",
+  },
+  {
+    title: "HR Department",
+    description: "Focuses on recruitment, employee relations, and organizational development.",
+    image: "/svg/icon/department/hr.svg",
+  }
 ];

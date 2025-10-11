@@ -30,11 +30,6 @@ export const managers = [
 		image: '/image/managers/AMINA GADIRI.avif',
 	},
 	{
-		name: 'Mohaned Manaa',
-		title: 'Dev Manager',
-		image: '/image/managers/MOHANED MANAA.avif',
-	},
-	{
 		name: 'Randa Markhoufa',
 		title: 'Culture Manager',
 		image: '/image/managers/RANDA MARKHOUFA.avif',
@@ -88,5 +83,10 @@ export const managers = [
 		name: 'Meriem Ghorab',
 		title: 'HR Co-manager',
 		image: '/image/managers/MERIEM GHORAB.avif',
+	},
+	{
+		name: 'Mohaned Manaa',
+		title: 'Dev Manager',
+		image: '/image/managers/MOHANED MANAA.avif',
 	},
 ];

@@ -5,6 +5,8 @@ import "@/style/theme.css";
 import "@/style/globals.css";
 import "@/style/components.css";
 import "@/style/utils.css";
+import AOSObserver from "@/components/AOSObserver";
+import PreloadImages from "@/components/PreloadImages";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -86,6 +88,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden bg-white text-gray-900`}
       >
+        <PreloadImages />
+        <AOSObserver />
         {children}
       </body>
     </html>

@@ -31,6 +31,7 @@ export default function Footer() {
       </div>
 
       <div className="center mt-10">
+        by &nbsp;
         <Link href={'https://github.com/mohaneddz'} className="underline md:text-secondary-light text-white/80 font-bold" target="_blank" rel="noopener noreferrer">
           MANAA Mohaned
         </Link>
