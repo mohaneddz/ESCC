@@ -56,20 +56,13 @@ export default function Hero() {
         </AOS>
       </AOS>
 
-      <AOS
-        as="div"
-        animation="fade-up"
-        className="relative container mx-8 md:mx-24 mt-20 flex col gap-16 sm:gap-10 md:gap-16"
-        offset={160}
-      >
-        <Image
-          src="/svg/misc/logo.svg"
-          alt="Scroll Down"
-          width={20}
-          height={20}
-          className="lg:w-[25vw] md:w-[30vw] w-[35vw] absolute bottom-0 right-20 md:right-50 z-10 float-animation"
-        />
-      </AOS>
+      <Image
+        src="/svg/misc/logo.svg"
+        alt="Scroll Down"
+        width={20}
+        height={20}
+        className="lg:w-[25vw] md:w-[30vw] w-[35vw] absolute bottom-0 right-20 md:right-50 z-10 float-animation"
+      />
 
       <Image
         src="/svg/misc/hero-wave.svg"
