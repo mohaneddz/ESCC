@@ -43,9 +43,9 @@ export default function Hero() {
         </AOS>
 
         <AOS as="div" animation="fade-up" delay={200} className="grid grid-cols-2 w-max gap-6 z-30">
-          <Link href="#about">
+          <Link href="/register">
             <Button className="w-40" variant="primary">
-              About us
+              Register
             </Button>
           </Link>
           <Link href="#recentevents">
