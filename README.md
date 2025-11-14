@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 style="font-family: Arial, sans-serif; font-size: 36px; color: #2563EB; display: flex; align-items: center; border-bottom: 3px solid #2563EB; padding-bottom: 5px;">
+    <img src="screenshots/logo.svg" alt="ESCC Hero" style="height: 55px; margin-right: 15px; object-fit: cover;">
+    ESCC - ENSIA’s Sports & Culture Club
+</h1>
 
-## Getting Started
+A modern, fast, fully responsive website for the **ENSIA Sports & Culture Club (ESCC)**.
+Built to highlight the club’s events, departments, upcoming initiatives, and leadership team, with clean navigation, optimized images, and smooth UX.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech Used 🛠️
+
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge\&logo=nextdotjs)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge\&logo=react\&logoColor=black)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge\&logo=tailwindcss)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge\&logo=typescript)
+![SEO](https://img.shields.io/badge/SEO_Optimized-22C55E?style=for-the-badge)
+![Vercel](https://img.shields.io/badge/Hosted_on_Vercel-000000?style=for-the-badge\&logo=vercel)
+
+---
+
+## Features ⚡
+
+* 🏫 **Club Presentation**
+  Clear overview of ESCC’s mission: creativity, teamwork, personal growth.
+
+* 🎉 **Events Timeline**
+  Latest events + future initiatives displayed visually and intuitively.
+
+* 📅 **Upcoming Event Highlight**
+  Designed section to spotlight the next major event (“The Hunt”).
+
+* 🏆 **Departments Overview**
+  Structured list of all club departments with descriptions.
+
+* 👥 **Team Showcase**
+  Full leadership team with roles and profile photos.
+
+* 📱 **Fully Responsive Design**
+  Works flawlessly across mobile, tablet, and desktop.
+
+* 🚀 **High SEO Score**
+  Well-structured metadata, optimized images, fast loading.
+
+---
+
+## Screenshots 📸
+
+<br>
+<img src="screenshots/hero.avif" alt="Hero" width="70%"/>
+
+**Hero:** ESCC identity + inspirational club introduction.
+
+<br>
+<img src="screenshots/about.avif" alt="About Section" width="70%"/>
+
+**About Us:** Mission, values, and community focus.
+
+<br>
+<img src="screenshots/events.avif" alt="Events Section" width="70%"/>
+
+**Latest Events:** Check our latest events!
+
+<br>
+<img src="screenshots/upcoming.avif" alt="Upcoming Event" width="70%"/>
+
+**Upcoming:** Main highlighted upcoming activity.
+
+<br>
+<img src="screenshots/departments.avif" alt="Departments" width="70%"/>
+
+**Departments:** Learn about all of our departments.
+
+<br>
+<img src="screenshots/team.avif" alt="Team" width="70%"/>
+
+**Executive Team:** President, VP, Managers & Co-Managers from all departments.
+
+<br>
+<img src="screenshots/join.avif" alt="Join Section" width="70%"/>
+
+**Join Us:** Registration Section.
+
+---
+
+## Project Structure 📂
+
+```plaintext
+src/
+├── app/                # Next.js App Router pages
+├── components/         # Reusable UI sections
+├── sections/           # Hero, About, Departments, Events, Team...
+├── lib/                # SEO config and helpers
+├── styles/             # Global Tailwind setup
+└── public/             # Static images, icons, logos
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Development 🛠️
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Install**
 
-## Learn More
+   ```sh
+   pnpm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Run**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```sh
+   pnpm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Build**
 
-## Deploy on Vercel
+   ```sh
+   pnpm run build
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Deploy (Vercel)**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```sh
+   vercel
+   ```
+
+---
+
+## Credits 🤝
+
+**Developed for ESCC (ENSIA Sports & Culture Club)**
+**By:** *Manaa Mohaned*
+© 2025 ESCC

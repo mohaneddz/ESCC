@@ -66,7 +66,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="navbar w-screen py-4 flex justify-between items-center px-8 fixed top-0 bg-background/70 backdrop-blur-sm z-50">
-        <div className="logo text-2xl font-black colored">ESCC CLUB</div>
+        <div className="logo text-2xl font-black colored">ESC CLUB</div>
 
         {/* Desktop Navigation */}
         <ul className="flex-1 hidden md:flex justify-center items-center gap-8">
